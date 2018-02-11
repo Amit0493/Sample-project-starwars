@@ -40,10 +40,11 @@ class Search extends React.Component{
         })
     }
     componentWillMount(){
-        if( !localStorage.getItem('userData')){
+        if( !localStorage.getItem('userData') && !(this.props.user)){
             this.props.history.push(`/`);
         }else{
             const user = localStorage.getItem('userData');
+            this.savePlanets(`https://swapi.co/api/planets/`);
             let url = `https://swapi.co/api/people/?search=${user}`
             this.props.dispatch(getUserData(url,(res)=>{
                 if(res.results.length >0){
@@ -54,7 +55,6 @@ class Search extends React.Component{
         }
     }
     componentDidMount(){
-        this.savePlanets(`https://swapi.co/api/planets/`);
         this.counter = setInterval(this.reinitialiseCounter ,1000*60);
     }
     componentWillUnmount(){

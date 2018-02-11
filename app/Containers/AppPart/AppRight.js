@@ -49,10 +49,10 @@ class AppRightSide extends React.Component{
                     const user = res.results[0];
                     if(user.birth_year === this.state.password){
                         if(this.state.persist){
-                                    localStorage.setItem("userData",this.state.username);
-                                    this.props.dispatch(saveUserInRedux(user));
-                                }
-                                this.props.navigateTo('search');
+                            localStorage.setItem("userData",this.state.username);
+                        }
+                        this.props.dispatch(saveUserInRedux(user));
+                        this.props.navigateTo('search');
                     }else{
                         this.setState({error:'Incorrect password',passwordError:true})
                     }
