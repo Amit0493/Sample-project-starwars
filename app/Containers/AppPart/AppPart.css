@@ -1,0 +1,34 @@
+.menu-text{
+    color: #fffbfa;
+    padding: 10px;
+    border-bottom: 2px solid #4ecd6f;
+}
+
+.seperate-content {
+    padding: 20px 15px;
+}
+
+.checkbox-react-dark {
+    float: left;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #76a76e;
+ -webkit-appearance: inherit;
+}
+.checkbox-react-dark:checked {
+    border: 1px solid #76a76e;
+    background: url('../../Images/check.svg') center no-repeat #76a76e;
+}
+.checkbox-react-dark:focus {
+    outline: none !important;
+}
+.checkbox-label{
+    margin-left: 20px;
+    color: white;
+}
+.submit-button{
+    padding:7px;
+    background:#34495e;
+    border:1px solid #4ecd6f;
+    color:#aeb9bd;
+}

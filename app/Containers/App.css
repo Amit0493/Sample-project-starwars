@@ -1,0 +1,59 @@
+@media (max-width: 900px) {
+    .checkbox-wrapper{
+        width:100%
+    }
+}
+
+
+@media (max-width: 800px) {
+    .app-left-side {
+        width:30%
+    }
+    .app-right-side{
+        width:70%
+    }
+    .checkbox-wrapper{
+        width:100%
+    }
+}
+
+@media (max-width: 500px) {
+    .app-left-side {
+        display:none;
+    }
+    .app-right-side{
+        width:100%
+    }
+    .login-menu{
+        padding: 0px;
+    }
+    .signup-menu{
+        padding: 0px;
+    }
+    .menu-wrapper{
+        padding: 0px;
+    }
+    .checkbox-wrapper{
+        width:100%
+    }
+
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.app-left-side {
+    background-color:#4dcd70;
+    min-height:100vh;
+}
+.app-right-side{
+    min-height:100vh;
+    background-color:#34495e;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
