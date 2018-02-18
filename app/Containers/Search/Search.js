@@ -8,16 +8,11 @@ import CircularProgress from 'material-ui/CircularProgress';
 import AllPlanets from '../../Components/Planet/PlanetCard';
 import RightMenu from '../../Components/AppBar/RightMenu';
 import './Search.css';
+import SearchState from './SearchStateInitialization';
 
 class Search extends React.Component{
     state={
-        searchText:'',
-        planets:[],
-        isLoading:true,
-        serachIsDisabled:true,
-        searchCounter:0,
-        error:false,
-
+        ...SearchState
     }
 
     searchChanged=(e)=>{
@@ -46,12 +41,12 @@ class Search extends React.Component{
             const user = localStorage.getItem('userData');
             this.savePlanets(`https://swapi.co/api/planets/`);
             let url = `https://swapi.co/api/people/?search=${user}`
-            this.props.dispatch(getUserData(url,(res)=>{
+            this.props.getUserData(url,(res)=>{
                 if(res.results.length >0){
                     const user = res.results[0];
-                    this.props.dispatch(saveUserInRedux(user));
+                    this.props.saveUserInRedux(user);
                 }
-            }))
+            })
         }
     }
     componentDidMount(){
@@ -61,7 +56,7 @@ class Search extends React.Component{
         clearInterval(this.counter);
     }
     savePlanets(searchUrl){
-        this.props.dispatch(getPlanetsData(searchUrl,(res)=>{
+        this.props.getPlanetsData(searchUrl,(res)=>{
             var sortedPlanets = res.results.sort((a,b)=>{
                 let aPopulation = isNaN(a.population) ? 0 : a.population;
                 let bPopulation = isNaN(b.population) ? 0 : b.population;
@@ -72,7 +67,7 @@ class Search extends React.Component{
             }
         },(err)=>{
             console.log(" the error is",err);
-        }))
+        })
     }
     getPlanets(planets){
         if(planets.length>0){
@@ -123,5 +118,19 @@ class Search extends React.Component{
 const mapStateToProps = (state)=>{
     return {...state.user}
 }
-Search = connect(mapStateToProps)(Search)
+
+const mapDispatchToProps  = function (dispatch) {
+    return ({
+        getUserData:(url,successCallback,errorCallback)=>{
+            dispatch(getUserData(url,successCallback,errorCallback))
+        },
+        saveUserInRedux:(user)=>{
+            dispatch(saveUserInRedux(user))
+        },
+        getPlanetsData:(url,successCallback,errorCallback)=>{
+            dispatch(getPlanetsData(url,successCallback,errorCallback))
+        }
+    })
+}
+Search = connect(mapStateToProps,mapDispatchToProps)(Search)
 export default Search;

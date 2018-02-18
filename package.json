@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "./node_modules/.bin/webpack-dev-server --progress --colors -w"
+    "dev": "./node_modules/.bin/webpack-dev-server --progress --colors -w",
+    "build": "export NODE_ENV=production && webpack -p --progress"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "browser-sync": "^2.23.6",
     "browser-sync-webpack-plugin": "^2.0.1",
     "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.3.1",
@@ -41,6 +43,7 @@
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-server": "^2.11.1"
   },
   "devDependencies": {

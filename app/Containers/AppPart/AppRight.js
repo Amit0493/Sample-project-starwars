@@ -5,29 +5,20 @@ import TextField from 'material-ui/TextField';
 import {getUserData} from '../../Redux/Actions/users';
 import {connect} from 'react-redux';
 import {saveUserInRedux} from '../../Redux/Actions/users';
+import AppRightState from './AppRightStateInitialization';
 class AppRightSide extends React.Component{
 
     constructor(props){
         super(props);
     }
-    componentWillMount(){
-    }
+
     state={
-        username:'',
-        password:'',
-        usernameError:false,
-        passwordError:false,
-        detailsIncorrect:false,
-        persist:true,
-        error:null
+        ...AppRightState
     }
 
-    setValue= (field, e)=> {
+    setValue = (field, e)=> {
         if(this.state.usernameError || this.state.passwordError || this.state.detailsIncorrect){
-            this.setState({
-                usernameError:false,
-                passwordError:false,
-                detailsIncorrect:false,
+            this.setState({ usernameError:false, passwordError:false, detailsIncorrect:false,
                 error:null
             })
         }
@@ -39,19 +30,18 @@ class AppRightSide extends React.Component{
         e.preventDefault();
         if(this.state.username.length <= 0){
             this.setState({error:'Enter Username',usernameError:true})
-
         }else if(this.state.password.length <=0){
             this.setState({error:'Enter password',passwordError:true})
         }else{
-            let url = `https://swapi.co/api/people/?search=${this.state.username}`
-            this.props.dispatch(getUserData(url,(res)=>{
+            let url = `https://swapi.co/api/people/?search=${this.state.username}`;
+            this.props.getUserData(url,(res)=>{
                 if(res.results.length >0){
                     const user = res.results[0];
                     if(user.birth_year === this.state.password){
                         if(this.state.persist){
                             localStorage.setItem("userData",this.state.username);
                         }
-                        this.props.dispatch(saveUserInRedux(user));
+                        this.props.saveUserInRedux(user);
                         this.props.navigateTo('search');
                     }else{
                         this.setState({error:'Incorrect password',passwordError:true})
@@ -68,15 +58,14 @@ class AppRightSide extends React.Component{
                 this.setState({
                             error:'Either username or password incorrect',
                             detailsIncorrect:true
-                        })
-            }))
+                })
+            });
 
         }
 
     }
     persistUser(e){
         this.setState({persist: e.target.checked});
-
     }
 
     render(){
@@ -140,5 +129,15 @@ class AppRightSide extends React.Component{
     }
 }
 
-AppRightSide = connect()(AppRightSide);
+const mapDispatchToProps = function (dispatch) {
+    return ({
+        getUserData:(url,successCallback,errorCallback)=>{
+            dispatch(getUserData(url,successCallback,errorCallback))
+        },
+        saveUserInRedux:(user)=>{
+            dispatch(saveUserInRedux(user))
+        },
+    })
+}
+AppRightSide = connect(null,mapDispatchToProps)(AppRightSide);
 export default AppRightSide;

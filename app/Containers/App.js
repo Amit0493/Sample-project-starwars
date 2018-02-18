@@ -25,9 +25,6 @@ class App extends React.Component {
         )
     }
 }
-const mapStateToProps = ()=>{
-    return {};
-}
 
-App = connect(mapStateToProps)(App);
+App = connect(null,null)(App);
 export default App;
